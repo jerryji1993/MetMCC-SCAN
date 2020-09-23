@@ -20,6 +20,12 @@ mcc_ncdb <-  mcc_ncdb %>%
                   RX_SUMM_SCOPE_REG_LN_2012 = 9
                   ))
 
+mcc_ncdb$CS_SITESPECIFIC_FACTOR_17 <- NULL
+mcc_ncdb$TNM_PATH_N <- NULL
+mcc_ncdb$TNM_CLIN_N <- NULL
+mcc_ncdb$CS_SITESPECIFIC_FACTOR_18 <- NULL
+mcc_ncdb$RX_SUMM_SCOPE_REG_LN_SUR <- NULL
+
 num_vars <- c("AGE","TUMOR_SIZE","REGIONAL_NODES_POSITIVE","REGIONAL_NODES_EXAMINED",
               "CS_SITESPECIFIC_FACTOR_1", "DX_RX_STARTED_DAYS", "DX_SURG_STARTED_DAYS",
               "DX_DEFSURG_STARTED_DAYS","DX_RAD_STARTED_DAYS", "RAD_REGIONAL_DOSE_CGY",
@@ -30,6 +36,7 @@ mcc_ncdb <- mcc_ncdb %<>%
   mutate_each(funs(factor(.)),cat_vars)
 str(mcc_ncdb)
 
+write.csv(mcc_ncdb, file = "./data/Merkel_NCDB_2.csv")
 
 
 ## Setting seeds
@@ -49,8 +56,8 @@ message("* Setting variable selection control...",appendLF=FALSE)
 varselControl <- rfeControl(functions = rfFuncs,
                             method = "repeatedcv",
                             saveDetails = TRUE,
-                            number = 10,
-                            repeats = 10,
+                            number = 3,
+                            repeats = 3,
                             seeds = seeds,
                             verbose = TRUE,
                             allowParallel = TRUE
@@ -59,12 +66,18 @@ varselControl <- rfeControl(functions = rfFuncs,
 message("* Recursive feature elimination...",appendLF=FALSE)
 varsel <- rfe(x = mcc_ncdb[,setdiff(colnames(mcc_ncdb),c("CS_SITESPECIFIC_FACTOR_3",
                                                          "REGIONAL_NODES_POSITIVE",
-                                                         "REGIONAL_NODES_EXAMINED"
-                                                         ))],
+                                                         "REGIONAL_NODES_EXAMINED",
+                                                         "CS_SITESPECIFIC_FACTOR_17",
+                                                         "TNM_PATH_N",
+                                                         "TNM_CLIN_N",
+                                                         "CS_SITESPECIFIC_FACTOR_18",
+                                                         "RX_SUMM_SCOPE_REG_LN_SUR"))],
               y = mcc_ncdb$CS_SITESPECIFIC_FACTOR_3,
               sizes = c(1:ncol(mcc_ncdb)),
               rfeControl = varselControl,
-              na.action = na.roughfix,
               verbose = TRUE)
+
+varimp <- varImp(varsel)
+write.csv(varimp,"./varimp.csv")
 
 stopCluster(cl)
