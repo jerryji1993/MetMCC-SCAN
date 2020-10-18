@@ -1,0 +1,7 @@
+numpy==1.19.1
+Python_Deprecated==1.1.0
+pandas==1.1.1
+streamlit==0.67.1
+deprecated==1.2.10
+Pillow==7.2.0
+scikit_learn==0.23.2
