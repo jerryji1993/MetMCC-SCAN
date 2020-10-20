@@ -114,5 +114,7 @@ Presentation slides to this work can be found [here](https://docs.google.com/pre
 
 ## Author
 Yanrong (Jerry) Ji
+
 Insight Health Data Fellow, Boston 20C
+
 jerry@mygeno.me
