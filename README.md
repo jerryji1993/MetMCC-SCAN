@@ -113,8 +113,4 @@ where you need to change the email address to the correct email. Then, clone the
 Presentation slides to this work can be found [here](https://docs.google.com/presentation/d/1ar9YK1E1geHDJsOuPARh0FYWF4-pmbSlVwKKdWI2ssk/edit?usp=sharing). An example demo server I created can be found [here](http://biopsy.digital/).
 
 ## Author
-Yanrong (Jerry) Ji
-
-Insight Health Data Fellow, Boston 20C
-
-jerry@mygeno.me
+Yanrong (Jerry) Ji, Insight Health Data Fellow, Boston 20C. Email: jerry@mygeno.me
